@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html th:lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>00여행사</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <link rel="shortcut icon" href="#">
+    <noscript>
+        <link rel="stylesheet" th:href="@{/css/noscript.css}"/>
+    </noscript>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
+    <style>
+        .col1 {
+            width: 250px;
+        }
+
+        .col2 {
+            display: flex;
+            justify-content: left;
+        }
+
+        td {
+            color: black;
+        }
+
+        td input[type='text'] {
+            width: 80%;
+            text-align: left;
+        }
+
+        td input[type='password'] {
+            width: 80%;
+        }
+
+        td select {
+            width: 80%;
+        }
+
+        .new-label {
+            color: greenyellow;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+<header th:replace="layout/header :: headerFragment"></header>
+<div layout:fragment="content">
+    <div id="wrapper">
+        <section id="content" class="main">
+            <table class="table01">
+                <caption>
+                    <h2>공지사항</h2>
+                </caption>
+                <tr>
+                    <td class="table-header">순번</td>
+                    <td class="table-header">제목</td>
+                    <td class="table-header">작성자</td>
+                    <td class="table-header">작성일</td>
+                    <td class="table-header">조회수</td>
+                    <td class="table-header">비밀글</td>
+                </tr>
+                <tr th:each="board : ${boardList}">
+                    <td class="board-detail"><span th:text="${board.boardId}"></span></td>
+                    <td class="board-detail"><span th:text="${board.title}" style="cursor: pointer;"
+                                                   th:onclick="|location.href='@{/boardDetail(boardId=${board.boardId})}'|"></span></td>
+                    <td class="board-detail"><span th:text="${board.username}"></span></td>
+                    <td class="board-detail post"><span class="created_at"
+                                                        th:text="${#dates.format(board.created_at, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                    </td>
+                    <td class="board-detail"><span th:text="${board.views}"></span></td>
+                    <td class="board-detail">
+                        <!-- 1이면 비밀글 -->
+                        <span th:if="${board.isLocked == 1}">🔐</span>
+                    </td>
+                </tr>
+            </table>
+            <div style="display: flex; justify-content: flex-end;">
+                <input type="button" class="button primary" value="작성하기" th:onclick="|location.href='@{/insertBoard}'|">
+            </div>
+        </section>
+    </div>
+</div>
+<footer th:replace="layout/footer :: footerFragment"></footer>
+<script>
+    $(document).ready(function () {
+        function addNewLabel() {
+            var today = new Date();
+            $('.post').each(function () {
+                var createdDateText = $(this).find('.created_at').text();
+                var createdDate = new Date(createdDateText);
+                var timeDiff = Math.abs(today - createdDate);
+                var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+                if (diffDays <= 15) {
+                    $(this).append('<span class="new-label">[NEW]</span>');
+                }
+            });
+        }
+
+        addNewLabel();
+    });
+</script>
+</body>
+</html>

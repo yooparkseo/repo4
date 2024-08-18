@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>00여행사</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <!-- favicon 설정 -->
+    <link rel="shortcut icon" href="#">
+
+    <!-- 기본 css -->
+    <noscript>
+        <link rel="stylesheet" th:href="@{/css/noscript.css}"/>
+    </noscript>
+
+    <!-- 커스텀 css -->
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+
+    <!-- jQuery CDN -->
+    <script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
+</head>
+<body id="wrapper">
+<!-- 헤더 -->
+<!-- deprecated된 형식 <header th:replace="layout/header :: headerFragment"></header>-->
+<header th:replace="~{layout/header :: headerFragment}"></header>
+
+<!-- 본문 -->
+<main>
+    <div layout:fragment="content">
+        <h1>사용자 전체 목록</h1>
+        <ul>
+            <li th:each="user : ${users}" th:text="${user.username}"></li>
+        </ul>
+    </div>
+</main>
+
+<!-- 푸터 -->
+<footer th:replace="~{layout/footer :: footerFragment}"></footer>
+</body>
+</html>

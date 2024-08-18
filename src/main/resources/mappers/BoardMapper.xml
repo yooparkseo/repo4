@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chami.repository.BoardRepository">
+    <select id="selectBoardList" parameterType="String" resultType="BoardVo">
+        SELECT
+            *
+        FROM t_board
+        where 1=1
+            <if test="type != 'all'">
+                and type = #{type}
+            </if>
+        and use_yn = 'Y'
+        order by boardId desc
+    </select>
+    <select id="selectBoardDetail" parameterType="int" resultType="BoardVo">
+        SELECT
+        *
+        FROM t_board
+        where boardId = #{boardId}
+    </select>
+    <update id="deleteBoardDetail" parameterType="int">
+        UPDATE t_board
+        SET use_yn = 'N'
+        WHERE boardId = #{boardId}
+    </update>
+</mapper>

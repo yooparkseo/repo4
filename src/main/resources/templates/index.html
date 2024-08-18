@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>00여행사</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <!-- favicon 설정 -->
+    <link rel="shortcut icon" href="#">
+
+    <!-- 기본 css -->
+    <noscript>
+        <link rel="stylesheet" th:href="@{/css/noscript.css}"/>
+    </noscript>
+
+    <!-- 커스텀 css -->
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+
+    <!-- jQuery CDN -->
+    <script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
+    <style>
+        /* Custom Slick Slider Styles */
+        .slick-slider {
+            margin: 0 auto;
+            width: calc(100% - 40px); /* 슬라이더 컨테이너의 너비를 부모 요소 너비에서 40px 빼줌 */
+            max-width: calc(100% - 40px); /* 슬라이더 컨테이너의 최대 너비를 부모 요소 너비에서 40px 빼줌 */
+            position: relative;
+        }
+        .slick-prev.slick-arrow{
+            display: inline-flex;
+            margin-bottom: 20px;
+        }
+        .slick-next.slick-arrow{
+            display: inline-flex;
+        }
+        .slick-prev, .slick-next {
+            font-size: 20px;
+            color: white !important;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .slick-prev:hover, .slick-next:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .slick-prev {
+            left: -50px;
+        }
+
+        .slick-next {
+            right: -50px;
+        }
+
+        .slick-slide {
+            display: inline-block;
+            width: 300px; /* 각 슬라이더 항목의 너비를 명시적으로 설정 */
+        }
+
+        .slick-slide img {
+            display: block;
+            width: 100%;
+        }
+
+        .slider-container {
+            margin: 20px auto; /* 컨테이너에 margin 추가 */
+            overflow: hidden; /* 슬라이더가 컨테이너 밖으로 나가지 않도록 설정 */
+        }
+    </style>
+
+</head>
+<body>
+<!-- 헤더 -->
+<!-- deprecated된 형식 <header th:replace="layout/header :: headerFragment"></header>-->
+<header th:replace="~{layout/header :: headerFragment}"></header>
+
+<!-- 본문 -->
+<div layout:fragment="content">
+    <!-- Wrapper -->
+    <div id="wrapper">
+        <!-- Nav -->
+        <nav id="nav">
+            <ul>
+                <li><a href="#all" id="allMenuToggle">전체메뉴</a></li>
+                <li><a href="#intro" class="active">회사소개</a></li>
+                <li><a href="#first">협력사</a></li>
+                <li><a href="#cta">서비스</a></li>
+            </ul>
+            <ul class="dropdown-menu" id="dropdownMenu">
+                <li><a href="#">마일리지 적립 기준</a></li>
+                <li><a href="#">회사소개</a></li>
+                <!-- get 요청 파라미터 넘기기 -->
+                <li><a th:href="@{/boardList(type='notice')}">공지사항</a></li>
+                <li><a href="#">견적문의</a></li>
+                <li><a href="#">해외여행필수정보</a></li>
+                <li><a href="#">고객센터</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main -->
+        <div id="main">
+            <!-- Introduction -->
+            <section id="intro" style="width: 100%; height: 100%; background-color: lightskyblue">
+                <video width="100%" height="100%" autoplay loop class="preview" muted>
+                    <source src="videos/main_video.mp4" type="video/mp4">
+                </video>
+            </section>
+
+            <!-- Get Started -->
+            <section id="cta" class="main special">
+                <header class="major">
+                    <h2>비즈니스 출장</h2>
+                    <p>비즈니스 출장 서비스를 이용해보세요.</p>
+                </header>
+                <div id="container" class="slider-container">
+                    <div class="image-container slick-slider">
+                        <div class="item" id="item1">
+                            <img src="/images/pic01.jpg"/>
+                        </div>
+                        <div class="item" id="item2">
+                            <img src="/images/pic02.jpg"/>
+                        </div>
+                        <div class="item" id="item3">
+                            <img src="/images/pic03.jpg"/>
+                        </div>
+                        <div class="item" id="item4">
+                            <img src="/images/pic05.jpg"/>
+                        </div>
+                        <div class="item" id="item5">
+                            <img src="/images/pic06.jpg"/>
+                        </div>
+                    </div>
+                </div>
+                <footer class="major">
+                    <ul class="actions special">
+                        <li><a href="generic.html" class="button primary">서비스 더보기</a></li>
+                    </ul>
+                </footer>
+            </section>
+
+            <!-- First Section -->
+            <section id="first" class="main special">
+                <header class="major">
+                    <h2>협력사</h2>
+                    <p>믿을 수 있는 협력사와 협업합니다.</p>
+                </header>
+                <div class="major_coperator">
+                    <div class="main_bar">1번 메뉴</div>
+                    <div class="main_bar">2번 메뉴</div>
+                    <div class="main_bar">3번 메뉴</div>
+                    <div class="main_bar">4번 메뉴</div>
+                    <div class="main_bar">5번 메뉴</div>
+                </div>
+                <div class="major_coperator">
+                    <div class="main_bar">1번 메뉴</div>
+                    <div class="main_bar">2번 메뉴</div>
+                    <div class="main_bar">3번 메뉴</div>
+                    <div class="main_bar">4번 메뉴</div>
+                    <div class="main_bar">5번 메뉴</div>
+                </div>
+                <footer class="major">
+                </footer>
+            </section>
+
+            <!-- Second Section -->
+            <section id="second" class="main special">
+                <header class="major">
+                    <h2>연수 프로그램</h2>
+                </header>
+
+                <div class="sc-5704ec7b-0 fBhNwa">
+                    <div class="tags" style="margin: 30px;">
+                        <div class="tags_pc">
+                            <button aria-pressed="true" class="sc-b0913d02-8 hiXpQV">
+                                #ESG경영
+                            </button>
+                            <button aria-pressed="false" class="sc-b0913d02-8 hiXpQV">
+                                #복지
+                            </button>
+                            <button aria-pressed="false" class="sc-b0913d02-8 hiXpQV">
+                                #행정
+                            </button>
+                            <button aria-pressed="false" class="sc-b0913d02-8 hiXpQV">
+                                #교육
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="major_program">
+                        <div class="program_bar">1번 메뉴</div>
+                        <div class="program_bar">2번 메뉴</div>
+                        <div class="program_bar">3번 메뉴</div>
+                        <div class="program_bar">4번 메뉴</div>
+                    </div>
+
+                    <footer class="major">
+                        <ul class="actions special">
+                            <li><a href="generic.html" class="button">더보기</a></li>
+                        </ul>
+                    </footer>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<!-- 푸터 -->
+<footer th:replace="~{layout/footer :: footerFragment}"></footer>
+<!-- Scripts -->
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/jquery.scrollex.min.js}"></script>
+<script th:src="@{/js/jquery.scrolly.min.js}"></script>
+<script th:src="@{/js/browser.min.js}"></script>
+<script th:src="@{/js/breakpoints.min.js}"></script>
+<script th:src="@{/js/util.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+
+<!-- 슬라이더 Scripts -->
+<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
+<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js}"></script>
+<script th:src="@{/js/init.js}"></script>
+<script>
+    $(document).ready(function () {
+        // Slick Slider Initialization
+        $(".slick-slider").slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            infinite: true,
+            centerMode: true,
+            variableWidth: true,
+            focusOnSelect: true,
+            prevArrow: '<button type="button" class="slick-prev">❮</button>',
+            nextArrow: '<button type="button" class="slick-next">❯</button>',
+        });
+
+        // 전체메뉴 드롭다운
+        $('#allMenuToggle').on('click', function (event) {
+            event.preventDefault();
+            $('#dropdownMenu').slideToggle();
+        });
+    });
+</script>
+</body>
+</html>

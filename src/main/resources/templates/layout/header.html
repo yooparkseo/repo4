@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<!-- 이 부분이 헤더 레이아웃임을 명시 -->
+<th:block th:fragment="headerFragment">
+    <!-- Header -->
+    <header id="header" class="alt">
+        <div class="top-logo">
+            <div class="logo"><a th:href="@{/}">회사로고</a></div>
+        </div>
+        <div class="top-bar">
+            <div class="user-options">
+                <a th:if="${session.user == null}" th:href="@{/login}">로그인</a>
+                <a th:if="${session.user != null}" th:href="@{/logout}">로그아웃</a>
+                <a th:if="${session.user == null}" th:href="@{/signup}">회원가입</a>
+                <a th:if="${session.user != null}" th:href="@{/mypage}">마이페이지</a>
+                <img class="flag-image" src="images/country/kr.svg" alt="Korea selected"
+                     data-attr="countrieslist" style="width: 30px;">
+            </div>
+        </div>
+    </header>
+</th:block>
+</html>

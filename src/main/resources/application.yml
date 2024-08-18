@@ -1,0 +1,33 @@
+server:
+  port: 8080
+  servlet:
+    encoding:
+      charset: UTF-8
+    context-path: /
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/chami_dev
+    username: root
+    password: 1234
+  profiles:
+    include: API-KEY # 설정파일참고
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+    encoding: UTF-8
+  security:
+    user:
+      name: test
+      password: 1234
+mybatis:
+  mapper-locations: mappers/*.xml
+  type-aliases-package: com.chami.vo
+logging:
+  level:
+    root: info # ??
+    com.chami: debug # ?????? 
+    org.springframework.security: debug # ????
+

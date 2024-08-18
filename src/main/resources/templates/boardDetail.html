@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html th:lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>00여행사</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <link rel="shortcut icon" href="#">
+    <noscript>
+        <link rel="stylesheet" th:href="@{/css/noscript.css}"/>
+    </noscript>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
+    <style>
+        .col1 {
+            width: 250px;
+        }
+
+        .col2 {
+            display: flex;
+            justify-content: left;
+        }
+
+        td {
+            color: black;
+        }
+
+        td input[type='text'] {
+            width: 80%;
+            text-align: left;
+        }
+
+        td select {
+            width: 80%;
+        }
+        td textarea{
+            width: 100%;
+            resize: none;
+        }
+    </style>
+</head>
+<body>
+<header th:replace="layout/header :: headerFragment"></header>
+<div layout:fragment="content">
+    <div id="wrapper">
+        <section id="content" class="main">
+            <table class="table01">
+                <caption>
+                    <!-- 전체, 공지사항, 게시판 일때 구분 추가 -->
+                    <h2>공지사항 상세보기</h2>
+                </caption>
+                <tr>
+                    <td class="table-header">순번</td>
+                    <td class="table-header">제목</td>
+                    <td class="table-header">작성자</td>
+                    <td class="table-header">작성일</td>
+                    <td class="table-header">조회수</td>
+                    <td class="table-header">비밀글</td>
+                </tr>
+                <tr th:each="detail : ${board}">
+                    <input type="hidden" id="type" th:value="${board.type}"/>
+                    <td class="board-detail"><span th:text="${detail.boardId}"></span></td>
+                    <td class="board-detail"><span th:text="${detail.title}" ></span></td>
+                    <td class="board-detail"><span th:text="${detail.username}"></span></td>
+                    <td class="board-detail post"><span class="created_at"
+                                                        th:text="${#dates.format(detail.created_at, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                    </td>
+                    <td class="board-detail"><span th:text="${detail.views}"></span></td>
+                    <td class="board-detail">
+                        <!-- 1이면 비밀글 -->
+                        <span th:if="${detail.isLocked == 1}">🔐</span>
+                    </td>
+                </tr>
+                <tr>
+                   <td colspan="6" id="board-content">
+                       <textarea th:text="${board.content}"></textarea>
+                   </td>
+                </tr>
+            </table>
+            <div style="display: flex; justify-content: center;">
+                <!-- 세션아이디랑 비교 -->
+                <input type="button" class="button warn" value="수정하기" onclick="">
+                <input type="button" class="button danger" value="삭제하기" th:onclick="|deleteBoardDetail(${board.boardId})|">
+            </div>
+        </section>
+    </div>
+</div>
+<footer th:replace="layout/footer :: footerFragment"></footer>
+<script>
+    function deleteBoardDetail(id) {
+        console.log("boardId {}", id);
+        let type = $('#type').val()
+        $.ajax({
+            url : '/deleteBoardDetail',
+            data : { boardId : id },
+            type : 'POST',
+            success: function(result){
+                alert('삭제되었습니다.');
+                window.location.href = '/boardList?type='+type;
+            },
+            error: function(data) {
+                console.error('삭제에 실패하였습니다.')
+            }
+        });
+    }
+</script>
+</body>
+</html>
